@@ -50,7 +50,7 @@ var loginForm = new Vue({
                         _this.loading = true;
                         _this.buttonText = 'Logging in...';
                         var data = {method: 'POST',  
-                        headers: {'Accept': 'application/json', 'Content-Type': 'application/json', 'Origin': 'https://qcredible.netlify.app'}, body: JSON.stringify(_this.loginData)
+                        headers: {'Accept': 'application/json', 'Content-Type': 'application/json', 'Origin': 'https://qcredible-main.netlify.app'}, body: JSON.stringify(_this.loginData)
                         }
                         console.log(data.body);
                         const url = 'https://qcredible.herokuapp.com/api/login';

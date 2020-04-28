@@ -65,7 +65,7 @@ var registerForm = new Vue({
                         _this.loading = true;
                         _this.buttonText = 'Registering...';
                         var data = {method: 'POST',  
-                        headers: {'Accept': 'application/json', 'Origin': 'https://qcredible.netlify.app'},
+                        headers: {'Accept': 'application/json', 'Origin': 'https://qcredible-main.netlify.app'},
                         body: _this.formData 
                         }
                         console.log(data.body);

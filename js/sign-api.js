@@ -81,7 +81,7 @@ var publicationForm = new Vue({
                 var data = {method: 'POST',  
                 headers: {
                     'Accept': 'application/json', 'Content-Type': 'application/json',
-                    'Authorization': Cookies.get('email'), 'Origin': 'https://qcredible.netlify.app'
+                    'Authorization': Cookies.get('email'), 'Origin': 'https://qcredible-main.netlify.app'
                     }, 
                     body: JSON.stringify(_this.pubData)}
                 
@@ -227,7 +227,7 @@ var publicationForm = new Vue({
 
             var data = {
                  method: 'POST',  
-                 headers: {'Accept': 'application/json', 'Content-Type': 'application/json', 'Origin': 'https://qcredible.netlify.app'
+                 headers: {'Accept': 'application/json', 'Content-Type': 'application/json', 'Origin': 'https://qcredible-main.netlify.app'
                },body: JSON.stringify(_this.toDelete)
              }
 
@@ -253,7 +253,7 @@ var publicationForm = new Vue({
                  method: 'GET',  
                  headers: {
                 'Accept': 'application/json', 'Content-Type': 'application/json',
-                'Authorization': Cookies.get('email'), 'Origin': 'https://qcredible.netlify.app'
+                'Authorization': Cookies.get('email'), 'Origin': 'https://qcredible-main.netlify.app'
                }
              }
 
