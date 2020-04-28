@@ -1,0 +1,26 @@
+{
+    "name": "Sign by Qcredible",
+    "short_name": "Qsign",
+    "icons": [{
+      "src": "/images/icons/128x128.png",
+        "sizes": "128x128",
+        "type": "image/png"
+      }, {
+        "src": "/images/icons/144x144.png",
+        "sizes": "144x144",
+        "type": "image/png"
+      }, {
+        "src": "/images/icons/152x152.png",
+        "sizes": "152x152",
+        "type": "image/png"
+      }, {
+        "src": "/images/icons/512x512.png",
+        "sizes": "512x512",
+        "type": "image/png"
+      }],
+    "start_url": "/sign.html",
+    "display": "standalone",
+    "orientation": "portrait",
+    "background_color": "#003300",
+    "theme_color": "#003300"
+  }

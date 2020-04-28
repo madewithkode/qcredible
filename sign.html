@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <script src="/js/js.cookie.min.js"></script>
+    <script src="/js/sign-session-check.js"></script>
+    <title>Qcredible - Publish, sign and verify press releases</title>
+    <!-- web-fonts -->
+    <script src="/js/vue.js"></script>
+    <link href='https://fonts.googleapis.com/css?family=Roboto:100,300,400,700,500' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+    <!-- font-awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">   
+    <!-- Flat Icon -->
+    <link href="/css/fonts/flaticon/flaticon.css" rel="stylesheet">
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <!-- Style CSS -->
+    <link href="/css/index.css" rel="stylesheet">
+    <link href="/css/cards.css" rel="stylesheet">
+    
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+<div id="main-wrapper">
+<!-- Page Preloader -->
+<div id="preloader">
+    <div id="status">
+        <div class="status-mes"></div>
+    </div>
+</div>
+
+
+<div id="app" class="content-wrapper"> 
+
+<!-- .navbar-top -->
+<nav class="navbar sticky-top navbar-expand-lg">
+    <div class="container">
+      <a class="navbar-brand" href="/"><img class="logo" src="/images/logo.png" alt=""></a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+   <i class="fas fa-bars"></i>
+  </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto w-100 justify-content-end">
+			<li class="nav-item">
+				<span class="nav-link">Hi, {{orgName}}</span>
+			<li id="logout" class="nav-item">
+				<a href="#" @click.prevent="logout" class="nav-link">Logout</a>
+        </ul>
+      </div>
+    </div>
+  </nav>
+<!-- .nav -->
+
+<section class="section-content-left-icon" style="padding-top: 40px;padding-bottom: 50px; border-bottom: none;">
+    <div class="container">
+		<div id="beggining" class="alert alert-info" role="alert">
+			<i class="fa fa-info-circle" aria-hidden="true"></i>
+			Create, save and sign your official publications below.
+		</div>
+		<div
+			class="alert alert-danger" role="alert" v-if="errors" v-for="error in errors">{{ error }}
+		</div>
+		<div id="editparent">
+			<div id="editor" onfocus="scrollToView()" contenteditable></div>
+			<textarea placeholder="Paste Publication Here" id="editorCopy" required="required" style="display:none;"></textarea>
+			<div id="editControls" class="editControls">
+				<div class="row">
+					<div class="col-sm-1">
+						<div class="btn-group">
+							<button v-on:click="SignPublication" type="button" class="btn btn-primary btn-sm my-btn"><img v-if="loading" src="/images/loader.gif" style="margin-right: 5px;"><i class="fas fa-location-arrow"></i> {{buttonText}}</button>
+						</div>
+					</div>
+					<div class="col-sm">
+						<div class="btn-group my-btn-group">
+							<a class="btn btn-xs btn-default" data-role="undo" href="#" title="Undo"><i class="fa fa-undo"></i></a>
+							<a class="btn btn-xs btn-default" data-role="redo" href="#" title="Redo"><i class="fas fa-redo"></i></a>
+						</div>
+						<div class="btn-group my-btn-group">
+							<a class="btn btn-xs btn-default" data-role="bold" href="#" title="Bold"><i class="fa fa-bold"></i></a>
+							<a class="btn btn-xs btn-default" data-role="italic" href="#" title="Italic"><i class="fa fa-italic"></i></a>
+							<a class="btn btn-xs btn-default" data-role="underline" href="#" title="Underline"><i class="fa fa-underline"></i></a>
+							<a class="btn btn-xs btn-default" data-role="strikeThrough" href="#" title="Strikethrough"><i class="fa fa-strikethrough"></i></a>
+						</div>
+						<div class="btn-group my-btn-group">
+							<a class="btn btn-xs btn-default" data-role="indent" href="#" title="Blockquote"><i class="fa fa-indent"></i></a>
+							<a class="btn btn-xs btn-default" data-role="insertUnorderedList" href="#" title="Unordered List"><i class="fa fa-list-ul"></i></a>
+							<a class="btn btn-xs btn-default" data-role="insertOrderedList" href="#" title="Ordered List"><i class="fa fa-list-ol"></i></a>
+						</div>
+						<div class="btn-group my-btn-group">
+							<a class="btn btn-xs btn-default" data-role="h1" href="#" title="Heading 1"><i class="fas fa-heading"></i></i><sup>1</sup></a>
+							<a class="btn btn-xs btn-default" data-role="h2" href="#" title="Heading 2"><i class="fas fa-heading"></i><sup>2</sup></a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div>
+			<!--This button below would be hidden it'd be trigered by JS to show the success/failure modal-->
+			<button style="display:none;" type="button" class="btn btn-primary sign-btn" data-toggle="modal" data-target="#exampleModalLong" id="signed-btn"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+			</i>Sign</button>
+		</div>
+    </div>
+    <!-- .container -->
+	<!--Signed Modal-->
+	<div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLongTitle"><i class="fa fa-check-circle-o fa-lg" aria-hidden="true"></i>
+					Publication Signed</h5>
+					<p>
+						<span>
+							<small style="margin-right: 8px; color: gray">Signature: <strong>{{signature}}</strong>
+							</small>
+							<button v-on:click="copyID1()" type="button" class="mybtn btn btn-xs sign-btn"><i class="fa fa-clipboard" aria-hidden="true"></i>
+							</i>{{copyButtonText1}}</button>
+						</span>
+					</p>
+				</div>
+				<div class="modal-body">
+					<blockquote id="signed-pub"><br/>
+						<small id="the-sign">Unique Signature: <strong>{{signature}}</strong> (Verify at https://verify.Qcredible.org)</small>
+					</blockquote>
+					<input type="hidden" id="first-signature" v-model="signature">
+				</div>
+				<div class="modal-footer">
+				<button type="button" class="btn btn-secondary sign-btn" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i>
+					Close</button>
+				<a href="#" id="share-wapp" v-on:click="getShareText($event,signedText,signature)" class="mybtn btn btn-primary sign-btn"><i class="fab fa-whatsapp"></i>
+					Share on Whatsapp</a>
+				</div>
+			</div>
+		</div>
+	</div>
+<!--modal ends--> 
+
+<!-- /.services-left-icon -->
+		<section v-if="pubNotEmpty"  class="section-content-left-icon">
+		<div class="container">
+			<div class="title">
+				<h3>Previous Publications</h3>
+			</div>
+				<div class="row">
+					<div class="col-xs-12 col-md-6 col-lg-3" v-for="(ele,index) in json_output">
+						<div class="card">
+						<img class="card-img-top" src="/images/sugfuto20.jpg" alt="Card image cap">
+						<div class="card-block">
+						<h4 class="card-title">{{ ele.date }}</h4>
+						<div class="card-text">
+							<p>{{ ele.Excerpt }}</p>
+						</div>
+						</div>
+						<span>
+							<button v-on:click="getDetails(ele.id,ele.date,ele.Html)" type="button" class="pub-btn btn btn-primary"><i class="far fa-eye"></i>
+								View</button>
+							<button type="button" style="display:none;" id="hidden-btn" class="btn btn-primary btn-sm sign-btn" data-toggle="modal" data-target="#fullViewModalLong"><i class="fa fa-clipboard" aria-hidden="true"></i>
+								View</button>
+							<button v-on:click="getDeleteId(ele.id)" type="button" class="btn btn-secondary btn-sm pub-btn" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i>
+								Delete</button>
+						</span>
+					<!--Modal to display full publication-->
+					<div class="modal fade" id="fullViewModalLong" tabindex="-1" role="dialog" aria-labelledby="fullViewModalLongTitle" aria-hidden="true">
+						<div class="modal-dialog modal-dialog-centered" role="document">
+							<div class="modal-content">
+								<div class="modal-header">
+								<h5 class="modal-title" id="fullViewModalLongTitle"><strong>Publication Details</strong></h5>
+								<p>
+									<span>
+									<small id="post-sign" style="color: gray">Signature: {{fullViewId}}</small><button v-on:click="copyID2()" type="button" class="mybtn btn btn-xs sign-btn"><i class="fa fa-clipboard" aria-hidden="true"></i>
+								</i>{{copyButtonText2}}</button></span></p>
+								<p><small id="post-date" style="color: gray"></small></p>
+						</div>
+						<div class="modal-body">
+							<blockquote id="post-detail"></blockquote>
+							<input type="hidden" id="second-signature" v-model="fullViewId">
+						</div>
+						<div class="modal-footer">
+								<a href="#" id="share-full"v-on:click="getShareText($event,'',fullViewId,'post-detail')" class="mybtn btn btn-primary btn-sm sign-btn"><i class="fab fa-whatsapp"></i> Share on Whatsapp</a>
+							<button type="button" class="btn btn-secondary sign-btn" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i> Close</button>
+						</div>
+					</div>
+				</div>
+				</div>
+				<!--Modal Ends-->
+				<button type="button" style="display:none;" id="delete-btn" class="mybtn btn btn-primary btn-sm sign-btn" data-toggle="modal" data-target="#deleteModalLong"><i class="fa fa-clipboard" aria-hidden="true"></i>
+					Delete</button>
+				<!--Modal to prompt deletion-->
+				<div class="modal fade" id="deleteModalLong" tabindex="-1" role="dialog" aria-labelledby="deleteModalLongTitle" aria-hidden="true">
+					<div class="modal-dialog modal-dialog-centered" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+							<h5 class="modal-title" id="deleteModalLongTitle"><strong><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Confirm Delete</strong></h5>
+					</div>
+					<div class="modal-body">
+						<blockquote id="confirm-delete"></blockquote>
+					</div>
+					<div class="modal-footer">
+						<button :disabled='isDisabled' v-on:click="deletePost" type="button" class="mybtn btn btn-primary btn-sm sign-btn"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+								Delete</button>
+						<button v-on:click="cancelDelete" type="button" class="btn btn-secondary sign-btn" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i> Close</button>
+					</div>
+				</div>
+			</div>
+			</div>
+				<!--Modal Ends-->
+					</div>
+				</div>
+			</div>
+				<!--Pagination-->
+			<nav v-if="hasNext" class="my-pagination" aria-label="Page navigation example">
+					<ul class="pagination justify-content-center">
+						<li class="page-item disabled">
+						<button :disabled='prevIsDisabled' v-on:click="getPrev" class="page-link" tabindex="-1"><i class="fa fa-chevron-left" aria-hidden="true"></i>
+							Previous</button>
+						</li>
+						<li class="page-item">
+						<button :disabled='nextIsDisabled' v-on:click="getNext" class="page-link">Next <i class="fa fa-chevron-right" aria-hidden="true"></i>
+						</button>
+						</li>
+					</ul>
+			</nav>
+		</div>
+	</section>
+</section>
+
+<section class="client-logo ptb-100">
+    <div class="container">
+        <div class="row flex-nowrap">
+            <div class="col-sm">
+                <a href="#"><img src="/images/logo-client-1.jpg" alt="Image"></a>
+            </div>
+            <div class="col-sm">
+                <a href="#"><img src="/images/logo-client-2.jpg" alt="Image"></a>
+            </div>
+            <div class="col-sm">
+                <a href="#"><img src="/images/logo-client-3.jpg" alt="Image"></a>
+            </div>
+            <div class="col-sm">
+                <a href="#"><img src="/images/logo-client-4.jpg" alt="Image"></a>
+            </div>
+            <div class="col-sm">
+                <a href="#"><img src="/images/logo-client-5.jpg" alt="Image"></a>
+            </div>
+            <div class="col-sm">
+                <a href="#"><img src="/images/logo-client-6.jpg" alt="Image"></a>
+            </div>
+        </div>
+    </div>
+            <!--end of .container -->
+</section>
+<!-- /.client-logo -->
+
+
+<footer class="footer">
+
+    <div class="copyright-section">
+        <div class="container clearfix">
+             <span class="copytext">Copyright &copy; <script>document.write(new Date().getFullYear());</script> | <a href="https://twitter.com/iam_princek">Qcredible</a> Made with <i class="fas fa-heart"></i> By: <strong style="color:#4d6de3">Onyenanu Princewill</strong></span>
+
+        </div><!-- .container -->
+
+    </div><!-- .copyright-section -->
+</footer>
+<!-- .footer -->
+
+</div>
+<!-- .content-wrapper -->
+</div>
+
+<!-- #main-wrapper -->
+<!-- Script -->
+<script>
+		if ('serviceWorker' in navigator) {
+			window.addEventListener('load', () => {
+				navigator.serviceWorker.register('/service-worker.js')
+				.then((reg) => {
+				console.log('Service worker registered.', reg);
+				});
+			});
+		}
+	</script>
+<script src="/js/jquery-2.1.4.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+<script src="/js/scripts.js"></script>
+<script src="/js/script.js"></script>
+<script  src="/js/sign-api.js"></script>
+<div>
+    <a style="font-size:0; height:0; width:0; opacity:0; position:absolute" target="_blank" href="http://www.uicookies.com">Bootstrap Templates by uiCookies</a>        
+</div>
+</body>
+</html>
