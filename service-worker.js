@@ -1,4 +1,4 @@
-const staticQcredible = "qcredible-sign"
+const staticQcredible2 = "qcredible-sign"
 const assets = [
   "/",
   "/sign.html",
@@ -25,7 +25,7 @@ const assets = [
 
 self.addEventListener("install", installEvent => {
   installEvent.waitUntil(
-    caches.open(staticQcredible).then(cache => {
+    caches.open(staticQcredible2).then(cache => {
       cache.addAll(assets)
     })
   )
