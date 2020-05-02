@@ -76,7 +76,7 @@
 			<textarea placeholder="Paste Publication Here" id="editorCopy" required="required" style="display:none;"></textarea>
 			<div id="editControls" class="editControls">
 				<div class="row">
-					<div class="col-sm">
+					<div class="col-sm" style="padding-left: 0px;padding-right: 0px;">
 						<div class="btn-group my-btn-group">
 							<a class="btn btn-xs btn-default" data-role="undo" href="#" title="Undo"><i class="fa fa-undo"></i></a>
 							<a class="btn btn-xs btn-default" data-role="redo" href="#" title="Redo"><i class="fas fa-redo"></i></a>
@@ -101,7 +101,7 @@
 			</div>
 		</div>
 		<div class="btn-group">
-			<button v-on:click="SignPublication" type="button" class="btn btn-primary btn-sm my-btn"><img v-if="loading" src="/images/loader.gif" style="margin-right: 5px;"><i class="fas fa-location-arrow"></i> {{buttonText}}</button>
+			<button v-on:click="SignPublication" type="button" class="btn btn-primary my-btn"><img v-if="loading" src="/images/loader.gif" style="margin-right: 5px;"><i class="fas fa-location-arrow"></i> {{buttonText}}</button>
 		</div>
 		<div>
 			<!--This button below would be hidden it'd be trigered by JS to show the success/failure modal-->
@@ -115,16 +115,26 @@
 		<div class="modal-dialog modal-dialog-centered" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLongTitle"><i class="fa fa-check-circle-o fa-lg" aria-hidden="true"></i>
-					Publication Signed</h5>
-					<p>
-						<span>
-							<small style="margin-right: 8px; color: gray">Signature: <strong>{{signature}}</strong>
-							</small>
-							<button v-on:click="copyID1()" type="button" class="mybtn btn btn-xs sign-btn"><i class="fa fa-clipboard" aria-hidden="true"></i>
-							</i>{{copyButtonText1}}</button>
-						</span>
-					</p>
+					<div class="container-fluid">
+						<div class="row">
+							<div class="col-md-12">
+								<h5 class="modal-title" id="exampleModalLongTitle"><i class="fa fa-check-circle-o fa-lg" aria-hidden="true"></i>
+									Publication Signed</h5>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-12">
+									<p>
+											<span>
+												<small style="margin-right: 8px; color: gray">Signature: <strong>{{signature}}</strong>
+												</small>
+												<button v-on:click="copyID1()" type="button" class="mybtn btn btn-xs sign-btn"><i class="fa fa-clipboard" aria-hidden="true"></i>
+												</i>{{copyButtonText1}}</button>
+											</span>
+										</p>
+							</div>
+						</div>
+					</div>
 				</div>
 				<div class="modal-body">
 					<blockquote id="signed-pub"><br/>
@@ -232,39 +242,11 @@
 	</section>
 </section>
 
-<section class="client-logo ptb-100">
-    <div class="container">
-        <div class="row flex-nowrap">
-            <div class="col-sm">
-                <a href="#"><img src="/images/logo-client-1.jpg" alt="Image"></a>
-            </div>
-            <div class="col-sm">
-                <a href="#"><img src="/images/logo-client-2.jpg" alt="Image"></a>
-            </div>
-            <div class="col-sm">
-                <a href="#"><img src="/images/logo-client-3.jpg" alt="Image"></a>
-            </div>
-            <div class="col-sm">
-                <a href="#"><img src="/images/logo-client-4.jpg" alt="Image"></a>
-            </div>
-            <div class="col-sm">
-                <a href="#"><img src="/images/logo-client-5.jpg" alt="Image"></a>
-            </div>
-            <div class="col-sm">
-                <a href="#"><img src="/images/logo-client-6.jpg" alt="Image"></a>
-            </div>
-        </div>
-    </div>
-            <!--end of .container -->
-</section>
-<!-- /.client-logo -->
-
-
 <footer class="footer">
 
     <div class="copyright-section">
         <div class="container clearfix">
-             <span class="copytext">Copyright &copy; <script>document.write(new Date().getFullYear());</script> | <a href="https://twitter.com/iam_princek">Qcredible</a> Made with <i class="fas fa-heart"></i> By: <strong style="color:#4d6de3">Onyenanu Princewill</strong></span>
+             <span class="copytext">Copyright &copy; <script>document.write(new Date().getFullYear());</script></span>
 
         </div><!-- .container -->
 
@@ -279,14 +261,14 @@
 <!-- #main-wrapper -->
 <!-- Script -->
 <script>
-		if ('serviceWorker' in navigator) {
-			window.addEventListener('load', () => {
-				navigator.serviceWorker.register('/service-worker.js')
-				.then((reg) => {
-				console.log('Service worker registered.', reg);
-				});
+	if ('serviceWorker' in navigator) {
+		window.addEventListener('load', () => {
+			navigator.serviceWorker.register('/service-worker.js')
+			.then((reg) => {
+			console.log('Service worker registered.', reg);
 			});
-		}
+		});
+	}
 	</script>
 <script src="/js/jquery-2.1.4.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
