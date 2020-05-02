@@ -76,11 +76,6 @@
 			<textarea placeholder="Paste Publication Here" id="editorCopy" required="required" style="display:none;"></textarea>
 			<div id="editControls" class="editControls">
 				<div class="row">
-					<div class="col-sm-1">
-						<div class="btn-group">
-							<button v-on:click="SignPublication" type="button" class="btn btn-primary btn-sm my-btn"><img v-if="loading" src="/images/loader.gif" style="margin-right: 5px;"><i class="fas fa-location-arrow"></i> {{buttonText}}</button>
-						</div>
-					</div>
 					<div class="col-sm">
 						<div class="btn-group my-btn-group">
 							<a class="btn btn-xs btn-default" data-role="undo" href="#" title="Undo"><i class="fa fa-undo"></i></a>
@@ -104,6 +99,9 @@
 					</div>
 				</div>
 			</div>
+		</div>
+		<div class="btn-group">
+			<button v-on:click="SignPublication" type="button" class="btn btn-primary btn-sm my-btn"><img v-if="loading" src="/images/loader.gif" style="margin-right: 5px;"><i class="fas fa-location-arrow"></i> {{buttonText}}</button>
 		</div>
 		<div>
 			<!--This button below would be hidden it'd be trigered by JS to show the success/failure modal-->

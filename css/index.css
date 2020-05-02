@@ -157,10 +157,11 @@ ul {
 }
 .my-btn{
   padding: .25rem .4rem;
-  font-size: .7rem;
+  font-size: 15px;
   line-height: .5;
   border-radius: .2rem;
   margin-bottom: 1px;
+  margin-top: 5px;
 }
 .my-btn-group{
   margin: .0rem .3rem .0rem .3rem;
@@ -534,8 +535,7 @@ icon-style
 
 .form-signin
 {
-    width: auto;
-    min-width: 360px;
+    max-width: 360px;
     padding: 15px;
     margin: 0 auto;
     border-radius: 6px;
