@@ -97,7 +97,7 @@ ul {
   position: relative;
   display: block;
   padding-bottom: 0;
-  border-bottom: 3px double #dcdcdc;
+  border-bottom: 3px double #f0d13d;
   margin-bottom: 10px;
 }
 .title::before {
@@ -164,7 +164,7 @@ ul {
   margin-top: 5px;
 }
 .my-btn-group{
-  margin: .0rem .3rem .0rem .3rem;
+  margin: .0rem .0rem .0rem .0rem;
 }
 .pub-btn{
   font-size: .9rem;
@@ -503,7 +503,7 @@ icon-style
  ------------------*/
 #editparent{
   background-color: #fafafa;
-  border: 1px solid #f0d13d;
+  border: 2px solid #f0d13d;
   border-radius: 5px !important;
   transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
 }
@@ -525,7 +525,7 @@ icon-style
     outline: 0 none;
   }
 .editControls{
-  border: 1px solid #f0d13d;
+  border: 2px solid #f0d13d;
   transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
 }
 
