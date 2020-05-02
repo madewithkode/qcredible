@@ -503,7 +503,7 @@ icon-style
  ------------------*/
 #editparent{
   background-color: #fafafa;
-  border: 1px solid #38af5b;
+  border: 1px solid #f0d13d;
   border-radius: 5px !important;
   transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
 }
@@ -525,7 +525,7 @@ icon-style
     outline: 0 none;
   }
 .editControls{
-  border: 1px solid #38af5b;
+  border: 1px solid #f0d13d;
   transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
 }
 
