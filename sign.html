@@ -74,7 +74,7 @@
 		<div id="editparent">
 			<div id="editor" onfocus="scrollToView()" contenteditable></div>
 			<textarea placeholder="Paste Publication Here" id="editorCopy" required="required" style="display:none;"></textarea>
-			<div id="editControls" class="editControls">
+			<div id="editControls" class="editControls text-center">
 				<div class="row">
 					<div class="col-sm" style="padding-left: 0px;padding-right: 0px;">
 						<div class="btn-group my-btn-group">
@@ -124,14 +124,12 @@
 						</div>
 						<div class="row">
 							<div class="col-md-12">
-									<p>
 										<span>
 											<small style="margin-right: 8px; color: gray">Signature: <strong>{{signature}}</strong>
 											</small>
 											<button v-on:click="copyID1()" type="button" class="mybtn btn btn-xs sign-btn"><i class="fa fa-clipboard" aria-hidden="true"></i>
 											</i>{{copyButtonText1}}</button>
 										</span>
-									</p>
 							</div>
 						</div>
 					</div>
@@ -154,7 +152,7 @@
 <!--modal ends--> 
 
 <!-- /.services-left-icon -->
-		<section style="background-color: #003300;" v-if="pubNotEmpty"  class="section-content-left-icon">
+		<section style="background-color: #003300; border-bottom: none;" v-if="pubNotEmpty"  class="section-content-left-icon">
 		<div class="container">
 			<div class="title">
 				<h3 style="color: #ffffff">Previous Publications</h3>
@@ -182,12 +180,26 @@
 						<div class="modal-dialog modal-dialog-centered" role="document">
 							<div class="modal-content">
 								<div class="modal-header">
-								<h5 class="modal-title" id="fullViewModalLongTitle"><strong>Publication Details</strong></h5>
-								<p>
-									<span>
-									<small id="post-sign" style="color: gray">Signature: {{fullViewId}}</small><button v-on:click="copyID2()" type="button" class="mybtn btn btn-xs sign-btn"><i class="fa fa-clipboard" aria-hidden="true"></i>
-								</i>{{copyButtonText2}}</button></span></p>
-								<p><small id="post-date" style="color: gray"></small></p>
+									<div class="container-fluid">
+										<div class="row">
+											<div class="col-md-12">
+												<h5 class="modal-title" id="fullViewModalLongTitle"><strong>Publication Details</strong></h5>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-md-12">
+													<span>
+															<small id="post-sign" style="color: gray">Signature: {{fullViewId}}</small><button v-on:click="copyID2()" type="button" class="mybtn btn btn-xs sign-btn"><i class="fa fa-clipboard" aria-hidden="true"></i>
+														</i>{{copyButtonText2}}</button>
+													</span>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-md-12">
+													<small id="post-date" style="color: gray"></small>
+											</div>
+										</div>
+									</div>
 						</div>
 						<div class="modal-body">
 							<blockquote id="post-detail"></blockquote>
