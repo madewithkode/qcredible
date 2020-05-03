@@ -203,7 +203,7 @@ var publicationForm = new Vue({
             
             var messageBody = altId ? document.getElementById(altId).textContent:text;
             
-            var finalMessageBody = messageBody + "\n"+"Unique Signature: "+ id +"(Verify at https://verify.sugfuto.org)";
+            var finalMessageBody = messageBody + "\n"+"Unique Signature: "+ id +"(Verify at https://qcredible.netlify.app)";
             
             var encodedBody = encodeURIComponent(finalMessageBody);
             console.log(encodedBody);
