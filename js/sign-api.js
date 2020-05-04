@@ -267,8 +267,8 @@ var publicationForm = new Vue({
                    //console.log(json.publications);
                    _this.json_output = json.publications;
                    _this.pubNotEmpty = (json.publications.length >= 1) ? true:false;
-                   _this.hasNext = (json.next) ? true:false;
-                   _this.hasPrevious = (json.previous) ? true:false;
+                   _this.hasNext = (json.next != null) ? true:false;
+                   _this.hasPrevious = (json.previous != null) ? true:false;
                     if(_this.hasNext){
                     _this.nextPage = json.next;
                    } 

@@ -726,7 +726,7 @@ icon-style
   .masthead {
     position: relative;
     background-color: #343a40;
-    background: url('../images/header.jpg') no-repeat center center;
+    background: url('../images/header.svg') no-repeat center center;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
