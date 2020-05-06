@@ -60,8 +60,6 @@
 <section id="app" class="section-content-left-icon" style="padding-top: 25px; border-bottom: none; background-color: #003300;">
     <div class="container">
         <form class="form-signin">
-            <img class="profile-img" src="/images/logo-client-2.jpg"
-            alt="">
             <div class="alert alert-info" role="alert">
                     <i class="fa fa-info-circle" aria-hidden="true"></i>
                     Login to access the publication signing portal.
@@ -73,36 +71,11 @@
             <button @click="login" class="mybtn sign-btn btn btn-lg btn-primary btn-block"><img v-if="loading" src="/images/loader.gif" style="margin-right: 5px;"><i class="fas fa-sign-in-alt"></i>
             {{buttonText}}</button>
             <span>
-                <a style="margin-right: 95px; color:wheat;" href="#" data-toggle="modal" data-target="#exampleModalCenter" class="text-center need-help">Need help? </a>
                 <a href="/register.html" style="color:wheat;" class="text-center need-help">Register Instead? </a><span class="clearfix"></span>
             </span>
         </form>
     </div>
     <!-- .container -->
-    <!--Modal-->
-    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">About</h5>
-            </div>
-            <div class="modal-body">
-                    In order to curb the impersonation of the office of the SUG public relations, and also the spread of fake news in and around campus, this system was developed to verify authentic publications originating from the above named office.
-                    <p>To verify the authenticity of any publicaton bearing the name of the SUG:
-                        <ul>
-                            <li>Look for a unique digital signature(ID) usually found at the end of every official publicaton</li>
-                            <li>Copy the unique ID and visit this portal(https://verify.sugfuto.org)</li>
-                            <li>Paste the ID in the verification box provided, and click 'Verify'. You'd get a notification letting you know if the publication with that ID is authentic or not.</li>
-                        </ul>
-                    Note: <small>If there's no digital signature(ID) on a publication bearing the name of the SUG, don't bother checking, it's not from us.</small>
-                    </p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i> Close</button>
-            </div>
-            </div>
-        </div>
-        </div>
     </div> 
 </section>
 <!-- /.services-left-icon -->
