@@ -238,7 +238,7 @@
 				</div>
 			</div>
 				<!--Pagination-->
-			<nav v-if="hasNext" class="my-pagination" aria-label="Page navigation example">
+			<nav v-if="hasNext || hasPrevious" class="my-pagination" aria-label="Page navigation example">
 					<ul class="pagination justify-content-center">
 						<li class="page-item disabled">
 						<button :disabled='prevIsDisabled' v-on:click="getPrev" class="page-link" tabindex="-1"><i class="fa fa-chevron-left" aria-hidden="true"></i>
