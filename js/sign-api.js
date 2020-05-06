@@ -270,10 +270,10 @@ var publicationForm = new Vue({
                    _this.hasNext = (json.next != null) ? true:false;
                    _this.hasPrevious = (json.previous != null) ? true:false;
                     if(_this.hasNext){
-                    _this.nextPage = json.next;
+                    _this.nextPage = 'https://qcredible.herokuapp.com'+json.next;
                    } 
                     if(_this.hasPrevious){
-                        _this.prevPage = json.previous;
+                        _this.prevPage = 'https://qcredible.herokuapp.com'+json.previous;
                     }
                }
              });
