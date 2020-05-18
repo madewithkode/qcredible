@@ -34,11 +34,16 @@ var registerForm = new Vue({
     el: '#app',
     data: {
         regData: {
-            orgName: "", 
+            name: "",
             email: "",
             password: "",
-            retypePassword: "",
+            password2: "",
+            orgName: "", 
+            orgEmail: "",
+            orgPassword: "",
+            orgPassword2: "",
         },
+        selected: 'Individual',
         formData: new FormData(),
         loading: false,
         buttonText: 'Register',
@@ -52,62 +57,124 @@ var registerForm = new Vue({
             var _this = this;
             _this.errors = [];
             _this.uploadErrors = [];
-            _this.regData.orgName = _this.regData.orgName.trim();
-            _this.regData.email = _this.regData.email.toLowerCase().trim();
-            _this.regData.password = _this.regData.password.trim();
-            _this.regData.retypePassword = _this.regData.retypePassword.trim();
-            if(!isEmpty(_this.regData.orgName &&_this.regData.email && !isEmpty(_this.regData.password) && !isEmpty(_this.regData.retypePassword) )){
-                if(validateEmail(_this.regData.email)){
-                    if(isAMatch(_this.regData.password,_this.regData.retypePassword)){
-                        if(_this.formData.has('file')){
-                            console.log("Starting Registration...")
-                        _this.errors = [];
-                        _this.loading = true;
-                        _this.buttonText = 'Registering...';
-                        var data = {method: 'POST',  
-                        headers: {'Accept': 'application/json', 'Origin': 'https://qcredible-main.netlify.app'},
-                        body: _this.formData 
-                        }
-                        console.log(data.body);
-                        const url = 'https://qcredible.herokuapp.com/api/register';
-                        timeout(7000, fetch(url, data)).then(function (response){ if (response.status >= 200 && response.status <= 299){
-                            return response.json();
-                        }else{
-                            _this.buttonText = "Register";
-                            _this.loading = false;
-                            console.log(response.statusText)
-                            throw 'Internal Server Error, Try later!';
-                        }
-                    })
-                    .then(function(json){
-                        console.log(json.response);
-                        if(json.response === "Duplicate User"){
-                            _this.errors.push(json.message)
-                            _this.buttonText = "Register";
-                            _this.loading = false;
-                        }else{
-                            if(json.response === "Successful"){
-                                window.location.replace("/login.html");
+            if(_this.selected == 'Organization'){
+                _this.regData.orgName = _this.regData.orgName.trim();
+                _this.regData.orgEmail = _this.regData.orgEmail.toLowerCase().trim();
+                _this.regData.orgPassword = _this.regData.orgPassword.trim();
+                _this.regData.orgPassword2 = _this.regData.orgPassword2.trim();
+                if(!isEmpty(_this.regData.orgName &&_this.regData.orgEmail && !isEmpty(_this.regData.orgPassword) && !isEmpty(_this.regData.orgPassword2) )){
+                    if(validateEmail(_this.regData.orgEmail)){
+                        if(isAMatch(_this.regData.orgPassword,_this.regData.orgPassword2)){
+                            if(_this.formData.has('file')){
+                                console.log("Starting Registration...")
+                            _this.errors = [];
+                            _this.loading = true;
+                            _this.buttonText = 'Registering...';
+                            var data = {method: 'POST',  
+                            headers: {'Accept': 'application/json', 'Origin': 'https://qcredible-main.netlify.app'},
+                            body: _this.formData 
                             }
-                        }
-                    }).catch(function(error) {
-                            // might be a timeout error
+                            console.log(data.body);
+                            const url = 'https://qcredible.herokuapp.com/api/register';
+                            timeout(7000, fetch(url, data)).then(function (response){ if (response.status >= 200 && response.status <= 299){
+                                return response.json();
+                            }else{
                                 _this.buttonText = "Register";
                                 _this.loading = false;
-                                _this.errors.push('An Error Occured, check your internet connection!');
-                          })
+                                console.log(response.statusText)
+                                throw 'Internal Server Error, Try later!';
+                            }
+                        })
+                        .then(function(json){
+                            console.log(json.response);
+                            if(json.response === "Duplicate User"){
+                                _this.errors.push(json.message)
+                                _this.buttonText = "Register";
+                                _this.loading = false;
+                            }else{
+                                if(json.response === "Successful"){
+                                    window.location.replace("/login.html");
+                                }
+                            }
+                        }).catch(function(error) {
+                                // might be a timeout error
+                                    _this.buttonText = "Register";
+                                    _this.loading = false;
+                                    _this.errors.push('An Error Occured, check your internet connection!');
+                            })
+                            }else{
+                                _this.uploadErrors.push('Upload a valid document!');
+                            }
                         }else{
-                            _this.uploadErrors.push('Upload a valid document!');
+                            _this.errors.push('Passwords do not match!');
                         }
                     }else{
-                        _this.errors.push('Passwords do not match!');
+                        _this.errors.push('Provide a valid email!');
                     }
+                    
                 }else{
-                    _this.errors.push('Provide a valid email!');
+                    _this.errors.push('All fields are required!');
                 }
-                
             }else{
-                _this.errors.push('All fields are required!');
+                _this.regData.name = _this.regData.name.trim();
+                _this.regData.email = _this.regData.email.toLowerCase().trim();
+                _this.regData.password = _this.regData.password.trim();
+                _this.regData.password2 = _this.regData.password2.trim();
+                if(!isEmpty(_this.regData.name &&_this.regData.email && !isEmpty(_this.regData.password) && !isEmpty(_this.regData.password2) )){
+                    if(validateEmail(_this.regData.email)){
+                        if(isAMatch(_this.regData.password,_this.regData.password2)){
+                            console.log("Starting Registration...")
+                            _this.errors = [];
+                            _this.loading = true;
+                            _this.buttonText = 'Registering...';
+                            _this.formData.append('pubType', _this.selected)
+                            _this.formData.append('name', _this.regData.name)
+                            _this.formData.append('email', _this.regData.email)
+                            _this.formData.append('password', _this.regData.password)
+                            for (var key of _this.formData.entries()) {
+                                console.log(key[0] + ', ' + key[1]);
+                            }
+                            var data = {method: 'POST',  
+                            headers: {'Accept': 'application/json', 'Origin': 'https://qcredible-main.netlify.app'},
+                            body: _this.formData 
+                            }
+                            console.log(data.body);
+                            const url = 'https://qcredible.herokuapp.com/api/register';
+                            timeout(7000, fetch(url, data)).then(function (response){ if (response.status >= 200 && response.status <= 299){
+                                return response.json();
+                            }else{
+                                _this.buttonText = "Register";
+                                _this.loading = false;
+                                console.log(response.statusText)
+                                throw 'Internal Server Error, Try later!';
+                            }
+                        })
+                        .then(function(json){
+                            console.log(json.response);
+                            if(json.response === "Duplicate User"){
+                                _this.errors.push(json.message)
+                                _this.buttonText = "Register";
+                                _this.loading = false;
+                            }else{
+                                if(json.response === "Successful"){
+                                    window.location.replace("/login.html");
+                                }
+                            }
+                        }).catch(function(error) {
+                                // might be a timeout error
+                                    _this.buttonText = "Register";
+                                    _this.loading = false;
+                                    _this.errors.push('An Error Occured, check your internet connection!');
+                            })
+                        }else{
+                            _this.errors.push('Passwords do not match!');
+                        }
+                    }else{
+                        _this.errors.push('Provide a valid email!');
+                    }  
+                }else{
+                    _this.errors.push('All fields are required!');
+                }
             }
         },
         handleFocus: function(e) {
@@ -142,14 +209,15 @@ var registerForm = new Vue({
 
             console.log(file);
             // add file to regData object declared above
+            _this.formData.append('pubType', _this.selected)
             _this.formData.append('file', file)
             _this.formData.append('orgName', _this.regData.orgName)
-            _this.formData.append('email', _this.regData.email)
-            _this.formData.append('password', _this.regData.password)
+            _this.formData.append('orgEmail', _this.regData.orgEmail)
+            _this.formData.append('orgPassword', _this.regData.orgPassword)
             
-            for (var key of _this.formData.entries()) {
+            /*for (var key of _this.formData.entries()) {
                 console.log(key[0] + ', ' + key[1]);
-            }
+            }*/
              
             
             /* send `POST` request
@@ -160,6 +228,9 @@ var registerForm = new Vue({
             .then(res => res.json())
             .then(json => console.log(json))
             .catch(err => console.error(err));*/
+        },
+        onChange(event) {
+            _this = this;
         }
     }
 })

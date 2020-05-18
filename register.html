@@ -59,15 +59,45 @@
 
 <section id="app" class="section-content-left-icon" style="padding-top: 40px; border-bottom: none; background-color: #003300;">
     <div class="container">
-        <form class="form-signin" style="width: auto;" enctype=multipart/form-data>
+        <form  class="form-signin" style="width: auto;" enctype=multipart/form-data>
             <div class="alert alert-info" role="alert">
                     <i class="fa fa-info-circle" aria-hidden="true"></i>
                     To register, provide required details below.
             </div>
             <div class="alert alert-danger" style="margin-bottom: 8px;" role="alert" v-if="errors" v-for="error in errors">{{ error }}
             </div>
-            <div class="alert alert-danger" style="margin-bottom: 8px;" role="alert" v-if="uploadErrors" v-for="error in uploadErrors">{{ error }}
+            <div class="alert alert-danger" style="margin-bottom: 8px;" role="alert" v-if="uploadErrors && selected == 'Organization' " v-for="error in uploadErrors">{{ error }}
+            </div>
+            <div class="row" style="padding-right: 15px;padding-left: 15px; margin-bottom: 5px;">
+                <select v-model="selected" @change="onChange($event)" class="btn btn-mini ml-auto">
+                    <option value="Individual">Individual</option>
+                    <option value="Organization">Organization</option>
+                </select>
+            </div>
+        <section v-if="selected == 'Individual' ">
+                <div class="row">
+                    <div class="col">
+                        <label for="exampleInputEmail1" style="color:wheat;">Name</label>
+                        <input onfocus="scrollToView()" v-model="regData.name" type="text" class="form-control" placeholder="Name" autofocus>
+                    </div>
+                    <div class="col">
+                        <label for="exampleInputEmail1" style="color:wheat;">Email</label>
+                        <input @focus="handleFocus" @blur="handleBlur" onfocus="scrollToView()" v-model="regData.email" type="text" class="form-control" placeholder="Email" autofocus>
+                    </div>
                 </div>
+                <div class="row">
+                    <div class="col">
+                        <label for="exampleInputEmail1" style="color:wheat;">Password</label>
+                        <input onfocus="scrollToView()"v-model="regData.password" type="password" class="form-control" placeholder="Password" autofocus>
+                    </div>
+                    <div class="col">
+                        <label for="exampleInputEmail1" style="color:wheat;">Confirm Password</label>
+                        <input onfocus="scrollToView()"  v-model="regData.password2" type="password" class="form-control" placeholder="Confirm Password" autofocus>
+                    </div>
+                </div>
+        </section>
+        <!--Business Section-->
+        <section v-else>
             <div class="row">
                 <div class="col">
                     <label for="exampleInputEmail1" style="color:wheat;">Organization Name</label>
@@ -75,18 +105,18 @@
                 </div>
                 <div class="col">
                     <label for="exampleInputEmail1" style="color:wheat;">Organization Email</label>
-                    <input @focus="handleFocus" @blur="handleBlur" onfocus="scrollToView()" v-model="regData.email" type="text" class="form-control" placeholder="Email" autofocus>
+                    <input @focus="handleFocus" @blur="handleBlur" onfocus="scrollToView()" v-model="regData.orgEmail" type="text" class="form-control" placeholder="Email" autofocus>
                     <small v-if="isFocused" id="emailHelp" class="form-text text-muted" style="margin-top: 0px;"><i class="fas fa-exclamation-triangle"></i> Email provided must show on uploaded document</small>
                 </div>
             </div>
             <div class="row">
                 <div class="col">
                     <label for="exampleInputEmail1" style="color:wheat;">Password</label>
-                    <input onfocus="scrollToView()"v-model="regData.password" type="password" class="form-control" placeholder="Password" autofocus>
+                    <input onfocus="scrollToView()"v-model="regData.orgPassword" type="password" class="form-control" placeholder="Password" autofocus>
                 </div>
                 <div class="col">
                     <label for="exampleInputEmail1" style="color:wheat;">Confirm Password</label>
-                    <input onfocus="scrollToView()"  v-model="regData.retypePassword" type="password" class="form-control" placeholder="Confirm Password" autofocus>
+                    <input onfocus="scrollToView()"  v-model="regData.orgPassword2" type="password" class="form-control" placeholder="Confirm Password" autofocus>
                 </div>
             </div>
             <div class="form-group">
@@ -95,10 +125,12 @@
                     <i class="fas fa-file-upload"></i> Upload <a href="#" data-toggle="modal"data-target="#exampleModalCenter" class="text-center need-help"><u style="color:wheat;">valid verification document.</u></a>
                     </label>
                     <div class="col-sm-4" style="padding-left: 0px;">
-                        <input @change="uploadFile" type="file" class="form-control-file" id="exampleFormControlFile1">
+                        <input style="margin-top: 5px;" @change="uploadFile" type="file" class="form-control-file" id="exampleFormControlFile1">
                     </div>
                 </div>
             </div>
+        </section>
+        <!--Business Section ends-->
             <button @click="Register" class="mybtn sign-btn btn btn-lg btn-primary btn-block"><img v-if="loading" src="/images/loader.gif" style="margin-right: 5px;"><i class="fas fa-user-plus"></i>
             {{buttonText}}</button>
             <span>

@@ -184,6 +184,20 @@ ul {
   color:#fff;
 }
 
+/*btn-primary*/
+.my-btn-primary {
+  background-color: #f0d13d;
+  border-color: #fff;
+  color:#000;
+  font-weight: unset;
+  }
+
+.my-btn-primary:hover{
+  background-color: #003300;
+  border-color: #003300;
+  color:#fff;
+}
+
 /*btn-default*/
 .btn-default {
   color            : #003300;
@@ -204,7 +218,26 @@ button:focus,
   outline : none;
   }
 
+/* ----------------------------------------------
+select element
+------------------------------------------------- */
+select.btn {
+  -webkit-appearance: button;
+  -moz-appearance: button;
+  appearance: button;
+  width: auto;
+}
 
+select.btn-mini {
+  height: auto;
+  line-height: 14px;
+  padding-right: 16px;
+}
+
+select.btn-mini + .caret {
+  margin-left: -20px;
+  margin-top: 9px;
+}
 
 /* ----------------------------------------------
 text-highlights
